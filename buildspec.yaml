@@ -1,0 +1,33 @@
+version: 0.2
+phases:
+  pre_build:
+    commands:
+      - echo Logging into ECR
+      - aws --version
+      - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 905418462597.dkr.ecr.us-east-1.amazonaws.com
+      - REPOSITORY_URI=905418462597.dkr.ecr.us-east-1.amazonaws.com/roman-numeral-converter
+      - IMAGE_TAG=$(echo $CODEBUILD_BUILD_ID | awk -F":" '{print $2}')
+      - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG
+  build:
+    commands:
+      - echo Build started on 'date'
+      - echo building the jar file
+      - mvn clean install
+      - echo Building the docker image
+      - docker build -t $REPOSITORY_URI:latest
+      - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG
+  post_build:
+    commands:
+      - echo Build completed on 'date'
+      - echo pushing to repo
+      - docker push $REPOSITORY_URI:latest
+      - docker push $REPOSITORY_URI:$IMAGE_TAG
+      - echo Writing image definition file
+      - DOCKER_CONTAINER_NAME=roman-numeral-converter-ecr-container
+      - echo $DOCKER_CONTAINER_NAME
+      - echo printing imagedefinitions.json
+      - cat imagedefinitions.json
+  artifacts:
+    files:
+      - imagedefinitions.json
+      - target/roman-numeral-converter-aws.jar
