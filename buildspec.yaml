@@ -27,7 +27,7 @@ phases:
       - echo $DOCKER_CONTAINER_NAME
       - echo printing imagedefinitions.json
       - cat imagedefinitions.json
-  artifacts:
-    files:
-      - imagedefinitions.json
-      - target/roman-numeral-converter-aws.jar
+artifacts:
+  files:
+    - imagedefinitions.json
+    - target/roman-numeral-converter-aws.jar
