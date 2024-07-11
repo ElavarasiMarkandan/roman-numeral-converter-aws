@@ -30,4 +30,4 @@ phases:
 artifacts:
   files:
     - imagedefinitions.json
-    - target/roman-numeral-converter-aws.jar
+    - target/roman-numeral-converter-aws-0.0.1-SNAPSHOT.jar
