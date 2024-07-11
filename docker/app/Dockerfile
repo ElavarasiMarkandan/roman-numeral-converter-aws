@@ -1,4 +1,4 @@
-FROM eclipse-temurin:21-jdk
+FROM eclipse-temurin:17-jdk-alpine
 
 LABEL maintainer="Elavarasi Markandan"
 LABEL description="Spring boot Java app that exposes a REST API to convert a given integer to roman numeral"

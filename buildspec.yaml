@@ -1,10 +1,5 @@
 version: 0.2
 phases:
-  install:
-    runtime-versions:
-      java: corretto-21  # Use the Amazon Corretto 21 version
-    commands:
-      - echo Installing dependencies...
   pre_build:
     commands:
       - echo Logging into ECR
