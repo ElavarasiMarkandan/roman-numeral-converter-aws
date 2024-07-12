@@ -1,4 +1,5 @@
 version: 0.2
+
 phases:
   pre_build:
     commands:
@@ -7,6 +8,8 @@ phases:
       - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 637423618364.dkr.ecr.us-east-1.amazonaws.com
       - REPOSITORY_URI=637423618364.dkr.ecr.us-east-1.amazonaws.com/roman-numeral-converter-ecr
       - IMAGE_TAG=$(echo $CODEBUILD_BUILD_ID | awk -F":" '{print $2}')
+      - echo Logging in to Docker Hub...
+      - echo $DOCKERHUB_TOKEN | docker login --username $DOCKERHUB_USERNAME --password-stdin
   build:
     commands:
       - echo Build started on `date`
